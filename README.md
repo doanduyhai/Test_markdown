@@ -112,10 +112,11 @@ L'un des moyens simples pour bien répartir les données sur tout le cluster c'e
 de hachage et le résultat est ce qu'on appelle un **token**. En choisissant bien la fonction de hachage, on peut faire en sorte qu'à 2 valeurs de #partition assez proche, 
 les tokens produits sont très différents:
 
+
 <pre>
- **hash**(#partition1) = token1
+ <strong>hash</strong>(#partition1) = token1
  
- **hash**(#partition2) = token2
+ <strong>hash</strong>(#partition2) = token2
 </pre>
 
 Si l'on prend le hash **MD5**, la valeur du token se situe dans l'intervalle [0 .. 2<sup>127</sup>-1]. On répartit uniformément cette plage de 
