@@ -8,7 +8,7 @@ Modèle de données physique dans **Cassandra**
  
 Avant d'entrer dans le vif du sujet, une petite présentation de **Apache Cassandra** s'impose pour ceux qui ne la connaissent pas.
 
-## Historique
+### Historique
  
 **Apache Cassandra** est une base de données de la famille **NoSQL** très en vogue. Elle se classe parmi les bases _orientées colonnes_ tout comme
 *HBase*, **Apache Accumulo**, **Big Table**. Cette base a été développée à l'origine par des ingénieurs de **Facebook** pour leurs besoins en
@@ -17,19 +17,19 @@ interne avant d'être mis à la disposition du grand public en _open-souce_.
 >Pour la petite histoire, dans le code source de **Cassandra** on 
 retrouve encore des classes préfixées avec **FB** (comme **Facebook**) qui rappelle cette origine
  
-## Origine du nom      
+### Origine du nom      
  
 Une petite anecdote veut que le nom de **Cassandra** ait été choisie par rapport à **Oracle**. D'après la mythologie grecque, **Cassandra** est un oracle
 maudit qui prédisait du malheur mais dont personne ne voulait croire les prédictions, jusqu'au jour où ... C'était un clin d'oeil très explicite à la base
 de données **Oracle** faite à l'époque par les ingénieurs de **Facebook**.
  
-## Architecture
+### Architecture
  
 Sans rentrer dans les détails, sachez que l'architecture **Cassandra** (qu'on va appeler désormais en C* pour plus de concision) s'inspire énormément
 du papier de recherche **Big Table** de **Google** ainsi que de l'architecture **Dynamo** d' **Amazon**. Le moteur de stockage de C* dérive
 directement de Big Table alors que sa couche de distribution de données s'inspire de l'architecture de **Dynamo*
 
-## Cluster
+### Cluster
 
 Quand on parle de C*, on parle souvent de **cluster**. Un cluster est un regroupement de plusieurs **noeuds** (serveur physique C*) qui communiquent
 entre eux pour la gestion de données.
@@ -37,7 +37,7 @@ entre eux pour la gestion de données.
   ![Cluster à 5 noeuds](Cluster à 5 noeuds.png)
      
 
-## Modèle physique de données
+# Modèle physique de données
 ### Keyspace et tables
  
 Dans un cluster Cassandra, on trouve des **tables** et des **keyspaces**. Un **keyspace** peut-être vu comme une base. En effet dans un modèle 
@@ -79,8 +79,8 @@ Pour résumer, une **table** peut être visualisée conceptuellement comme ensem
  
 **A noter que les colonnes sont triées par leur clé de colonne. Nous verrons par la suite que cette fonctionnalité est cruciale pour la modélisation de données dans Cassandra**
  
-## Distribution de données
-### Concept
+### Distribution de données
+##### Concept
 
 Dans un cluster, les partitions dans une table sont réparties entre plusieurs noeuds. Il y a 2 façons de répartir les données:
  
@@ -105,13 +105,12 @@ Dans tous les cas, il est vivement conseillé d'utiliser un partitionnement alé
 Les cas où l'utilisation du partitionnement ordonné est approprié sont très rares.
 
 
-### Les tokens
+##### Les tokens
 
 L'un des moyens simples pour bien répartir les données sur tout le cluster c'est d'utiliser une fonction de hachage très dispersif. En pratique, 
 à chaque opération de modification ou de lecture de données, le client fournit une clé de partition (#partition) à C*. Cette clé passe d'abord par une fonction
 de hachage et le résultat est ce qu'on appelle un **token**. En choisissant bien la fonction de hachage, on peut faire en sorte qu'à 2 valeurs de #partition assez proche, 
 les tokens produits sont très différents:
-
 
 <pre>
  <strong>hash</strong>(#partition1) = token1
@@ -132,7 +131,7 @@ valeur de token entre les différents noeuds du cluster. Ainsi, pour un cluster 
    
  
 
-## Structure d'une table
+# Structure d'une table
  
 Maintenant, nous allons voir comment une table est représentée dans le moteur de stockage (storage engine) de C*.
  
@@ -207,7 +206,7 @@ sur tous les noeuds.
 
 Si on avait choisie un partitionnement ordonné, une table serait assimilable à  **`SortedMap<#partition,SortedMap<#col,cellule>>`**
 
-## Les requêtes
+# Les requêtes
 ### L'API Thrift
 
 ### Abstraction
@@ -215,7 +214,7 @@ Si on avait choisie un partitionnement ordonné, une table serait assimilable à
 ### Exemples
  
  
-## Le type **composite**
+# Le type **composite**
 ### Définition 
  
 ### Application
